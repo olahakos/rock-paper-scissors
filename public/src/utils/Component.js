@@ -3,10 +3,12 @@ class Component {
     this.template = template;
     this.html = '';
   }
-  getHtml(params) {
-    return fetch(this.template)
+  getHtml(params, loader, getData) {
+    loader = loader || fetch;
+    getData = getData || (data => (data.text()));
+    return loader(this.template)
       .then(data => {
-        return data.text();
+        return getData(data);
       })
       .then(data => {
         this.html = this._replaceParams(data, params);
@@ -24,3 +26,7 @@ class Component {
     return html;
   }
 };
+
+if (typeof module === 'object') {
+  module.exports = Component;
+}

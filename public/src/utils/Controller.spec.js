@@ -1,6 +1,6 @@
 'use strict';
 
-const expect = require('chai').expect;
+const expect = require('chai-as-promised').expect;
 
 const ControllerClass = require('./Controller');
 

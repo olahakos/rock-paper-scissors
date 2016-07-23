@@ -9,7 +9,6 @@ const fs = require('fs-readfile-promise');
 const Component = require('./Component');
 
 chai.use(chaiAsPromised);
-var getData = (d) => (d.toString());
 
 describe('Component', () => {
   let component;
@@ -23,6 +22,7 @@ describe('Component', () => {
   const wrongParams = {themsg: testText};
   const multiParams = {msg: testText, sec: testText2};
   const emptySlot = '{msg}';
+  const getData = (d) => (d.toString());
 
   it('should load the given template file', () => {
     component = new Component(validTemplatePath);

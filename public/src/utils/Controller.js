@@ -2,7 +2,7 @@ class Controller {
   constructor(root) {
     this.root = root;
   }
-  setHeader(LoadComponent, params) {
+  loadElement(LoadComponent, params, target) {
     LoadComponent
       .getHtml(params)
       .then(html => {
@@ -12,4 +12,7 @@ class Controller {
         throw err;
       });
   }
+}
+if (typeof module === 'object') {
+  module.exports = Controller;
 }

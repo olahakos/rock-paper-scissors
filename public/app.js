@@ -7,4 +7,7 @@ class App extends Controller {
   }
 }
 let app = new App();
-app.setHeader(new OpenComponent(), {msg: 'hit there'});
+
+const Open = new OpenComponent('/src/components/Open/open.html');
+const openParams = {msg: 'hit there'};
+app.loadElement(Open, openParams, app.root);

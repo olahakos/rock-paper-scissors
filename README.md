@@ -1,5 +1,5 @@
 # Rock - Papper - Scissors
-
+[![CircleCI](https://circleci.com/gh/olahakos/rock-papper-scissors.svg?style=svg)](https://circleci.com/gh/olahakos/rock-papper-scissors)
 
 # Tools
 

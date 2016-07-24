@@ -1,4 +1,5 @@
 /*global OpenComponent:true*/
+/*global TutorialComponent:true*/
 /*global Controller:true*/
 
 var AbsController;
@@ -15,9 +16,17 @@ class App extends AbsController {
       throw new ParamException('OpenComponent not found');
     }
     this.open = components.OpenComponent;
+    this.tutorial = components.TutorialComponent;
   }
   _landingPage() {
     return this.loadElement(this.open, this.root);
+  }
+  _tutorialPage() {
+    return this.loadElement(this.tutorial, this.root);
+  }
+  _startGame(gameType) {
+    // TODO: start game function
+    return true;
   }
 }
 
@@ -26,10 +35,11 @@ if (typeof module === 'object') {
   module.exports = App;
 } else {
   // for live environment
-  let app = new App(
+  var app = new App(
     document.getElementById('root'),
     {
-      OpenComponent: new OpenComponent()
+      OpenComponent: new OpenComponent(),
+      TutorialComponent: new TutorialComponent()
     }
   );
   app._landingPage();

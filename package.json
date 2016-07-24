@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha public/**/*.spec.js",
     "start": "node src/app.js",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "cover": "istanbul cover _mocha -- -R spec public/src/**/*.spec.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
     "eslint": "^3.1.1",
     "eslint-plugin-standard": "^2.0.0",
     "fs-readfile-promise": "^3.0.0",
+    "istanbul": "^0.4.4",
     "jquery": "^3.1.0",
     "jscoverage": "^0.6.0",
     "jsdom": "^9.4.1",
@@ -42,6 +44,7 @@
   },
   "pre-commit": [
     "lint",
-    "test"
+    "test",
+    "cover"
   ]
 }

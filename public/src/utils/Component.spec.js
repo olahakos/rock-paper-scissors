@@ -25,33 +25,39 @@ describe('Component', () => {
   const getData = (d) => (d.toString());
 
   it('should load the given template file', () => {
-    component = new Component(validTemplatePath);
-    return expect(component.getHtml(testParams, fs, getData))
+    component = new Component(validTemplatePath, testParams);
+    return expect(component.getHtml(fs, getData))
       .to.be.a('promise')
       .to.eventually.have.string(testText);
   });
   it('should throw error ifthe given template file not exists', () => {
-    component = new Component(invalidTemplatePath);
-    return expect(component.getHtml(testParams, fs))
+    component = new Component(invalidTemplatePath, testParams);
+    return expect(component.getHtml(fs))
       .to.be.a('promise')
       .to.eventually.rejected.and.notify();
   });
 
   it('should _relpaceParams return null with empty parameters', () => {
+    component = new Component(validTemplatePath, {});
+    return expect(component.getHtml(fs, getData))
+      .to.be.a('promise')
+      .to.eventually.have.string(emptySlot);
+  });
+  it('should without any kind of default store parameter', () => {
     component = new Component(validTemplatePath);
-    return expect(component.getHtml({}, fs, getData))
+    return expect(component.getHtml(fs, getData))
       .to.be.a('promise')
       .to.eventually.have.string(emptySlot);
   });
   it('should _relpaceParams skip if there is no peremeter witch would fit', () => {
-    component = new Component(validTemplatePath);
-    return expect(component.getHtml(wrongParams, fs, getData))
+    component = new Component(validTemplatePath, wrongParams);
+    return expect(component.getHtml(fs, getData))
       .to.be.a('promise')
       .to.eventually.have.string(emptySlot);
   });
   it('should _relpaceParams work with multiple parameters', () => {
-    component = new Component(validTemplatePath);
-    return expect(component.getHtml(multiParams, fs, getData))
+    component = new Component(validTemplatePath, multiParams);
+    return expect(component.getHtml(fs, getData))
       .to.be.a('promise')
       .to.eventually.have.string(testText)
       .to.eventually.have.string(testText2);

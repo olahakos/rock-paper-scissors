@@ -2,13 +2,13 @@ class Controller {
   constructor(root) {
     this.root = root;
   }
-  loadElement(LoadComponent, params, target) {
+  loadElement(LoadComponent, target) {
     target = target || this.root;
-    if (!LoadComponent || !params) {
+    if (!LoadComponent) {
       throw new UserException('Parameter Error');
     }
     return LoadComponent
-      .getHtml(params)
+      .getHtml()
       .then(html => {
         target.innerHTML = html;
         return true;

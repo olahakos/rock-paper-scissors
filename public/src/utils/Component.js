@@ -1,9 +1,9 @@
 class Component {
-  constructor (template) {
+  constructor (template, store) {
     this.template = template;
-    this.html = '';
+    this.store = store || {};
   }
-  getHtml(params, loader, getData) {
+  getHtml(loader, getData) {
     loader = loader || fetch;
     getData = getData || (data => (data.text()));
     return loader(this.template)
@@ -11,7 +11,7 @@ class Component {
         return getData(data);
       })
       .then(data => {
-        this.html = this._replaceParams(data, params);
+        this.html = this._replaceParams(data, this.store);
         return this.html;
       })
       .catch((err) => {

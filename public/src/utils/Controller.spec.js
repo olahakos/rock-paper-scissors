@@ -15,7 +15,7 @@ describe('Controller', () => {
   const mockHtml = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do';
   const initText = 'init value';
   const mockedComponent = {
-    getHtml: (params) => (Promise.resolve(mockHtml))
+    getHtml: () => (Promise.resolve(mockHtml))
   };
   const mockedTarget = { innerHTML: 'init text' };
 
@@ -30,7 +30,7 @@ describe('Controller', () => {
   });
   it('should load the given component\'s html into the targeted element', () => {
     controller = new Controller(root);
-    return controller.loadElement(mockedComponent, {}, mockedTarget)
+    return controller.loadElement(mockedComponent, mockedTarget)
       .then(() => {
         expect(mockedTarget.innerHTML).to.be.eql(mockHtml);
         expect(root.innerHTML).to.be.eql(initText);
@@ -39,19 +39,10 @@ describe('Controller', () => {
 
   it('should load the given component\'s html into the root element if there is no target element in the parameters', () => {
     controller = new Controller(root);
-    return controller.loadElement(mockedComponent, {})
+    return controller.loadElement(mockedComponent)
       .then(() => {
         expect(root.innerHTML).to.be.eql(mockHtml);
       });
-  });
-
-  it('should reject without params', () => {
-    controller = new Controller(root);
-    try {
-      controller.loadElement(mockedComponent);
-    } catch (err) {
-      expect(err.message).to.be.eql('Parameter Error');
-    }
   });
 
   it('should reject without target and root parameters', () => {

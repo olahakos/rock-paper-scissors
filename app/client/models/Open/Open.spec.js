@@ -15,7 +15,8 @@ describe('Open', () => {
   const validParams = {
     headline: 'hi there',
     menu1: 'this is menu 1',
-    menu2: 'this is menu 2'
+    menu2: 'this is menu 2',
+    tutorial: 'How to play'
   };
   const getData = (d) => (d.toString());
 
@@ -40,9 +41,10 @@ describe('Open', () => {
     return open.getHtml(fs, getData)
       .then(html => {
         document.body.innerHTML = html;
-        expect($('ul li').length).to.be.eql(2);
+        expect($('ul li').length).to.be.eql(3);
         expect($('ul li:nth-child(1) a').html()).eql(validParams.menu1);
         expect($('ul li:nth-child(2) a').html()).eql(validParams.menu2);
+        expect($('ul li:nth-child(3) a').html()).eql(validParams.tutorial);
       });
   });
   it('should build the DOM without parameters', function () {
@@ -51,7 +53,7 @@ describe('Open', () => {
       .then(html => {
         document.body.innerHTML = html;
         expect($('h1').length).eql(1);
-        expect($('ul li').length).to.be.eql(2);
+        expect($('ul li').length).to.be.eql(3);
       });
   });
 });

@@ -2,14 +2,14 @@
 
 var AbsComponent;
 if (typeof Component === 'undefined') {
-  AbsComponent = require('../../utils/Component');
+  AbsComponent = require('../Component');
 } else {
   AbsComponent = Component;
 }
 
 class OpenComponent extends AbsComponent {
   constructor(root, store) {
-    root = root || '/src/components/Open/open.html';
+    root = root || '../../views/open.html';
     super(root);
     const openParams = {msg: 'hit there'};
     this.store = store || {

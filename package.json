@@ -4,10 +4,10 @@
   "description": "Rock - Papper - Scissors",
   "main": "src/app.js",
   "scripts": {
-    "test": "mocha public/**/*.spec.js",
-    "start": "node src/app.js",
+    "test": "mocha app/**/*.spec.js",
+    "start": "node app/app.js",
     "lint": "eslint src",
-    "cover": "istanbul cover _mocha -- -R spec public/src/**/*.spec.js"
+    "cover": "istanbul cover _mocha -- -R spec app/**/*.spec.js"
   },
   "repository": {
     "type": "git",

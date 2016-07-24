@@ -5,12 +5,12 @@ const expect = require('chai').expect;
 const fs = require('fs-readfile-promise');
 const jsdom = require('mocha-jsdom');
 
-const Component = require('../../utils/Component');
+const Component = require('../Component');
 const Open = require('./Open');
 
 describe('Open', () => {
   let open;
-  const validTemplatePath = path.resolve(__dirname, './Open.html');
+  const validTemplatePath = path.resolve(__dirname, '../../views/Open.html');
   const validParams = {
     headline: 'hi there',
     menu1: 'this is menu 1',

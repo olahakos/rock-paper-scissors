@@ -1,6 +1,13 @@
 /*global Component:true*/
 
-class OpenComponent extends Component {
+var AbsComponent;
+if (typeof Component === 'undefined') {
+  AbsComponent = require('../../utils/Component');
+} else {
+  AbsComponent = Component;
+}
+
+class OpenComponent extends AbsComponent {
   constructor(root, store) {
     root = root || '/src/components/Open/open.html';
     super(root);
@@ -12,3 +19,7 @@ class OpenComponent extends Component {
     };
   }
 };
+
+if (typeof module === 'object') {
+  module.exports = OpenComponent;
+}

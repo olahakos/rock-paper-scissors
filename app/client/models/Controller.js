@@ -5,7 +5,7 @@ class Controller {
   loadElement(LoadComponent, target) {
     target = target || this.root;
     if (!LoadComponent) {
-      throw new UserException('Parameter Error');
+      throw new ParamException('Parameter Error');
     }
     return LoadComponent
       .getHtml()
@@ -22,7 +22,7 @@ if (typeof module === 'object') {
   module.exports = Controller;
 }
 
-function UserException(message) {
+function ParamException(message) {
   this.message = message;
-  this.name = 'UserException';
+  this.name = 'ParamException';
 }

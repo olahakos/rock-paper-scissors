@@ -4,6 +4,7 @@ const path = require('path');
 const expect = require('chai').expect;
 const fs = require('fs-readfile-promise');
 const jsdom = require('mocha-jsdom');
+const rerequire = jsdom.rerequire;
 
 const Component = require('../Component');
 const Open = require('./Open');
@@ -18,11 +19,11 @@ describe('Open', () => {
   };
   const getData = (d) => (d.toString());
 
+  // setup jsdom
   jsdom();
-  var $;
-
+  let $;
   before(function () {
-    $ = require('jquery');
+    $ = rerequire('jquery');
   });
 
   it('should have a <h1> header with the given headline text', function () {

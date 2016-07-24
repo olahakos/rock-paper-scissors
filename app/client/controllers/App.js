@@ -1,5 +1,6 @@
 /*global OpenComponent:true*/
 /*global TutorialComponent:true*/
+/*global GameComponent:true*/
 /*global Controller:true*/
 
 var AbsController;
@@ -17,16 +18,17 @@ class App extends AbsController {
     }
     this.open = components.OpenComponent;
     this.tutorial = components.TutorialComponent;
+    this.game = components.GameComponent;
   }
   _landingPage() {
-    return this.loadElement(this.open, this.root);
+    return this.mountComponent(this.open, this.root);
   }
   _tutorialPage() {
-    return this.loadElement(this.tutorial, this.root);
+    return this.mountComponent(this.tutorial, this.root);
   }
   _startGame(gameType) {
     // TODO: start game function
-    return true;
+    return this.mountComponent(this.game, this.root);
   }
 }
 
@@ -39,7 +41,8 @@ if (typeof module === 'object') {
     document.getElementById('root'),
     {
       OpenComponent: new OpenComponent(),
-      TutorialComponent: new TutorialComponent()
+      TutorialComponent: new TutorialComponent(),
+      GameComponent: new GameComponent()
     }
   );
   app._landingPage();

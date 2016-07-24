@@ -10,9 +10,7 @@ if (typeof Component === 'undefined') {
 class OpenComponent extends AbsComponent {
   constructor(root, store) {
     root = root || '../../views/open.html';
-    super(root);
-    const openParams = {msg: 'hit there'};
-    this.store = store || {
+    store = store || {
       headline: 'Rock - Papper -Scissors',
       menu1: 'Player VS Computer',
       menu2: 'Computer VS Computer',
@@ -21,6 +19,7 @@ class OpenComponent extends AbsComponent {
       menu1OnClick: 'app._startGame(1)',
       menu2OnClick: 'app._startGame(2)'
     };
+    super(root, store);
   }
 };
 

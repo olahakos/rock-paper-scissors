@@ -2,7 +2,7 @@ class Controller {
   constructor(root) {
     this.root = root;
   }
-  loadElement(LoadComponent, target) {
+  mountComponent(LoadComponent, target) {
     target = target || this.root;
     if (!LoadComponent) {
       throw new ParamException('Parameter Error');

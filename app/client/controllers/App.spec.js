@@ -11,7 +11,9 @@ describe('App', () => {
   const mockText = 'Lorem ipsum';
   const mockHtml = `<div>${mockText}</div>`;
   const validComponentParams = {
-    OpenComponent: new MockedComponent(mockHtml)
+    OpenComponent: new MockedComponent(mockHtml),
+    TutorialComponent: new MockedComponent(mockHtml),
+    GameComponent: new MockedComponent(mockHtml)
   };
   const invalidComponentParams = {};
 

@@ -28,10 +28,10 @@ describe('Controller', () => {
         .to.be.eql(root);
     });
   });
-  describe('#loadElement', () => {
+  describe('#mountComponent', () => {
     it('should load the given component\'s html into the targeted element', () => {
       controller = new Controller(root);
-      return controller.loadElement(mockedComponent, mockedTarget)
+      return controller.mountComponent(mockedComponent, mockedTarget)
         .then(() => {
           expect(mockedTarget.innerHTML).to.be.eql(mockHtml);
           expect(root.innerHTML).to.be.eql(initText);
@@ -39,7 +39,7 @@ describe('Controller', () => {
     });
     it('should load the given component\'s html into the root element if there is no target element in the parameters', () => {
       controller = new Controller(root);
-      return controller.loadElement(mockedComponent)
+      return controller.mountComponent(mockedComponent)
         .then(() => {
           expect(root.innerHTML).to.be.eql(mockHtml);
         });
@@ -48,7 +48,7 @@ describe('Controller', () => {
     it('should reject without target and root parameters', () => {
       controller = new Controller();
       try {
-        controller.loadElement(mockedComponent, {});
+        controller.mountComponent(mockedComponent, {});
       } catch (err) {
         expect(err.message).to.be.eql('Parameter Error');
       }

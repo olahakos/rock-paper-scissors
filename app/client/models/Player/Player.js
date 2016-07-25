@@ -8,10 +8,31 @@ if (typeof Component === 'undefined') {
 }
 
 class PlayerComponent extends AbsComponent {
-  constructor(root, store) {
+  constructor(root, store, position) {
     root = root || '../../views/Player.html';
     super(root, store);
     this.choice = 0;
+    this.position = position;
+  }
+  startGuess() {
+    return true;
+  }
+  endGuess() {
+    return true;
+  }
+  addFocus() {
+    let root = document.getElementById(`p${this.position}`);
+    this.removeFocusAll(root);
+    root
+      .querySelector(`li:nth-child(${this.choice + 1})`)
+      .className = 'active';
+  }
+  removeFocusAll(root) {
+    for (let i = 1; i <= 3; i++) {
+      root
+        .querySelector(`li:nth-child(${i})`)
+        .className = '';
+    }
   }
 };
 

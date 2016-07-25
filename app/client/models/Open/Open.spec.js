@@ -6,7 +6,7 @@ const fs = require('fs-readfile-promise');
 const jsdom = require('mocha-jsdom');
 const rerequire = jsdom.rerequire;
 
-const Component = require('../Component');
+const Component = require('../Component/Component');
 const Open = require('./Open');
 
 describe('Open', () => {

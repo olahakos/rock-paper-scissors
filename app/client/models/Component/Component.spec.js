@@ -13,8 +13,8 @@ chai.use(chaiAsPromised);
 describe('Component', () => {
   let component;
 
-  const validTemplatePath = path.resolve(__dirname, '../../../mock/template.html');
-  const invalidTemplatePath = path.resolve(__dirname, '../../../mock/templateNOT.html');
+  const validTemplatePath = path.resolve(__dirname, '../../../../mock/template.html');
+  const invalidTemplatePath = path.resolve(__dirname, '../../../../mock/templateNOT.html');
 
   const testText = 'test message';
   const testText2 = 'new mock message';

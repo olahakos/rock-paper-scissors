@@ -2,7 +2,7 @@
 
 var AbsComponent;
 if (typeof Component === 'undefined') {
-  AbsComponent = require('../Component');
+  AbsComponent = require('../Component/Component');
 } else {
   AbsComponent = Component;
 }
@@ -32,7 +32,9 @@ class GameComponent extends AbsComponent {
         throw new ParamException('No gameType added');
     }
   }
+  _startRound() {
 
+  }
 };
 
 if (typeof module === 'object') {

@@ -43,23 +43,20 @@ class App extends AbsController {
   }
   _startGame(gameType) {
     return this.mountComponent(this.game, this.root)
-    .then(() => {
-      return this.game._startGame(gameType);
-    })
-    .then(() => {
-      const p1 = document.getElementById('p1');
-      return this.mountComponent(this.game.p1, p1);
-    })
-    .then(() => {
-      const p2 = document.getElementById('p2');
-      return this.mountComponent(this.game.p2, p2);
-    })
-    .then(() => {
-      return this.game._startGame(gameType);
-    })
-    .then(() => {
-      return this._openPopup();
-    });
+      .then(() => {
+        return this.game._startGame(gameType);
+      })
+      .then(() => {
+        const p1 = document.getElementById('p1');
+        return this.mountComponent(this.game.p1, p1);
+      })
+      .then(() => {
+        const p2 = document.getElementById('p2');
+        return this.mountComponent(this.game.p2, p2);
+      })
+      .then(() => {
+        return this._openPopup();
+      });
   }
   _openPopup() {
     const popup = document.getElementById('popupCnt');
@@ -71,7 +68,7 @@ class App extends AbsController {
   _startRound() {
     this._closePopup();
     const countbackCnt = document.getElementById('countbackCnt');
-    this.mountComponent(this.countback, countbackCnt)
+    return this.mountComponent(this.countback, countbackCnt)
       .then(() => {
         return this.countback.startCounter(
           this.countback,

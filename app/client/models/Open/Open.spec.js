@@ -5,6 +5,7 @@ const expect = require('chai').expect;
 const fs = require('fs-readfile-promise');
 const jsdom = require('mocha-jsdom');
 const rerequire = jsdom.rerequire;
+const sinon = require('sinon');
 
 const Component = require('../Component/Component');
 const Open = require('./Open');
@@ -57,6 +58,19 @@ describe('Open', () => {
           document.body.innerHTML = html;
           expect($('h1').length).eql(1);
           expect($('ul li').length).to.be.eql(3);
+        });
+    });
+  });
+  describe('#onKeyEvent', () => {
+    it('should click the propper button', () => {
+      open = new Open(validTemplatePath, validParams);
+      return open.getHtml(fs, getData)
+        .then(html => {
+          document.body.innerHTML = html;
+          const keyEvent = Math.round(Math.random() * 2) + 1;
+          const spy = sinon.spy(document.getElementById(`menu${keyEvent}`), 'click');
+          open.onKeyEvent(keyEvent.toString());
+          sinon.assert.calledOnce(spy);
         });
     });
   });

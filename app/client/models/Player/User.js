@@ -8,7 +8,11 @@ if (typeof PlayerComponent === 'undefined') {
 }
 
 class UserComponent extends AbsComponent {
-  startGuess(focusCallback) {
+  constructor(root, store, position) {
+    super(root, store, position);
+    this.listen = false;
+  }
+  startGuess() {
     this.removeFocusAll();
     this.listen = true;
   }

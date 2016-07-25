@@ -28,7 +28,7 @@ describe('User', () => {
   });
 
   beforeEach(function() {
-    user = new Player(validTemplatePath, {}, 1);
+    user = new User(validTemplatePath, {}, 1);
   });
 
   describe('#constructor', () => {
@@ -38,24 +38,53 @@ describe('User', () => {
     });
   });
   describe('#startGuess', () => {
-    it('should add an "active" class to the chosen element', () => {
-      // return user.getHtml(fs, getData)
-      //   .then(html => {
-      //     $('#p1').html(html);
-      //     user.removeFocusAll = () => {};
-      //     const spy = sinon.spy(window, 'alert');
-      //     user.startGuess(() => (console.log('callback')));
-      //
-      //     var e = $.Event('keydown');
-      //     e.which = '2'.charCodeAt(0); // # Some key code value
-      //     console.log(e.which);
-      //     $(document).trigger(e);
-      //   });
-      // TODO: FIX IT
+    it('should start to listen to the key events', () => {
+      expect(user.listen).to.be.false;
+      user.removeFocusAll = () => {};
+      const spy = sinon.spy(user, 'removeFocusAll');
+      user.startGuess();
+      expect(user.listen).to.be.ok;
+      sinon.assert.calledOnce(spy);
     });
-    it('should choce the symbole based on witch key has been pressed');
   });
   describe('#endGuess', () => {
-    it('should ignore to the keypress events from now');
+    it('should ignore to the keypress events from now', () => {
+      expect(user.listen).to.be.false;
+      user.removeFocusAll = () => {};
+      user.startGuess();
+      expect(user.listen).to.be.ok;
+      user.endGuess();
+      expect(user.listen).to.be.false;
+    });
+  });
+
+  describe('#onKeyEvent', () => {
+    it('should handle right if we add propper events', () => {
+      user.addFocus = () => {};
+      user.removeFocusAll = () => {};
+      const spy = sinon.spy(user, 'addFocus');
+      user.startGuess();
+      const keyEvent = Math.round(Math.random() * 2) + 1;
+      user.onKeyEvent(keyEvent.toString());
+      sinon.assert.calledOnce(spy);
+    });
+    it('should not rerender, if the event is not valid', () => {
+      user.addFocus = () => {};
+      user.removeFocusAll = () => {};
+      const spy = sinon.spy(user, 'addFocus');
+      user.startGuess();
+      user.onKeyEvent('Enter');
+      sinon.assert.notCalled(spy);
+    });
+    it('should not rerender, if we are not listen', () => {
+      user.addFocus = () => {};
+      user.removeFocusAll = () => {};
+      const spy = sinon.spy(user, 'addFocus');
+      user.startGuess();
+      user.endGuess();
+      const keyEvent = Math.round(Math.random() * 2) + 1;
+      user.onKeyEvent(keyEvent.toString());
+      sinon.assert.notCalled(spy);
+    });
   });
 });

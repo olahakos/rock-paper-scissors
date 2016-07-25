@@ -6,6 +6,7 @@ const rerequire = jsdom.rerequire;
 
 const App = require('./App');
 const MockedComponent = require('../../../mock/MockedComponent');
+const MockedKeyboard = require('../../../mock/MockedKeyboard');
 
 describe('App', () => {
   const mockText = 'Lorem ipsum';
@@ -13,7 +14,10 @@ describe('App', () => {
   const validComponentParams = {
     OpenComponent: new MockedComponent(mockHtml),
     TutorialComponent: new MockedComponent(mockHtml),
-    GameComponent: new MockedComponent(mockHtml)
+    GameComponent: new MockedComponent(mockHtml),
+    CountbackComponent: new MockedComponent(),
+    PopupComponent: new MockedComponent(),
+    KeyboardHelper: new MockedKeyboard()
   };
   const invalidComponentParams = {};
 

@@ -41,7 +41,8 @@ describe('Game', () => {
           expect($('#game').length).eql(1);
           expect($('#game #p1').length).eql(1);
           expect($('#game #p2').length).eql(1);
-          expect($('#game #countback').length).eql(1);
+          expect($('#game #countbackCnt').length).eql(1);
+          expect($('#game #popupCnt').length).eql(1);
         });
     });
   });

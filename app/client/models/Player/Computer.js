@@ -9,6 +9,7 @@ if (typeof PlayerComponent === 'undefined') {
 
 class ComputerComponent extends AbsComponent {
   startGuess() {
+    this.removeFocusAll();
     this.choice = Math.round(Math.random() * 2);
   }
   endGuess() {

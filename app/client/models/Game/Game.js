@@ -17,12 +17,15 @@ class GameComponent extends AbsComponent {
     this.UserClass = UserClass;
     this.ComputerClass = ComputerClass;
     this.p1 = this.p2 = {};
+    this.components = [];
   }
   _startGame(gameType) {
+    this.components = [];
     switch (gameType) {
       case 'UVC':
         this.p1 = new this.UserClass(null, {name: 'Player 1 - User'}, 1);
         this.p2 = new this.ComputerClass(null, {name: 'Player 2 - Computer'}, 2);
+        this.components.push(this.p1);
         break;
       case 'CVC':
         this.p1 = new this.ComputerClass(null, {name: 'Player 1 - Computer'}, 1);
@@ -41,6 +44,12 @@ class GameComponent extends AbsComponent {
     this.p2.endGuess();
     console.log(this.p1.choice);
     console.log(this.p2.choice);
+  }
+  onKeyEvent(event) {
+    if (!document.getElementById('game')) { return; }
+    this.components.forEach(comp => {
+      comp.onKeyEvent(event);
+    });
   }
 };
 

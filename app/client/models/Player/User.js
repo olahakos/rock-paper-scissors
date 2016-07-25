@@ -9,33 +9,31 @@ if (typeof PlayerComponent === 'undefined') {
 
 class UserComponent extends AbsComponent {
   startGuess(focusCallback) {
-    document.addEventListener('keydown', (event) => {
-      this.keyEventListener(event, this);
-    });
+    this.removeFocusAll();
+    this.listen = true;
   }
   endGuess() {
-    document.removeEventListener('keydown', (event) => {
-      this.keyEventListener(event, this);
-    });
+    this.listen = false;
   }
-  keyEventListener(event, _this) {
+  onKeyEvent(event) {
+    if (!this.listen) { return; }
     let needRender = true;
-    switch (event.key) {
+    switch (event) {
       case '1':
-        _this.choice = 0;
+        this.choice = 0;
         break;
       case '2':
-        _this.choice = 1;
+        this.choice = 1;
         break;
       case '3':
-        _this.choice = 2;
+        this.choice = 2;
         break;
       default:
         needRender = false;
         break;
     }
     if (needRender) {
-      _this.addFocus();
+      this.addFocus();
     }
   }
 };

@@ -4,6 +4,8 @@
 /*global CountbackComponent:true*/
 /*global UserComponent:true*/
 /*global ComputerComponent:true*/
+/*global PopupComponent:true*/
+/*global KeyboardHelper:true*/
 /*global Controller:true*/
 
 var AbsController;
@@ -23,6 +25,15 @@ class App extends AbsController {
     this.tutorial = components.TutorialComponent;
     this.game = components.GameComponent;
     this.countback = components.CountbackComponent;
+    this.popup = components.PopupComponent;
+    this.keyHelper = components.KeyboardHelper;
+
+    this.keyHelper.subscribers([
+      this.open,
+      this.tutorial,
+      this.popup,
+      this.game
+    ]);
   }
   _landingPage() {
     return this.mountComponent(this.open, this.root);
@@ -47,11 +58,19 @@ class App extends AbsController {
       return this.game._startGame(gameType);
     })
     .then(() => {
-      return this._startRound();
+      return this._openPopup();
     });
   }
+  _openPopup() {
+    const popup = document.getElementById('popupCnt');
+    return this.mountComponent(this.popup, popup);
+  }
+  _closePopup() {
+    document.getElementById('popupCnt').innerHTML = '';
+  }
   _startRound() {
-    const countbackCnt = document.getElementById('countback');
+    this._closePopup();
+    const countbackCnt = document.getElementById('countbackCnt');
     this.mountComponent(this.countback, countbackCnt)
       .then(() => {
         return this.countback.startCounter(
@@ -65,6 +84,7 @@ class App extends AbsController {
       });
   }
   _endRound(_this) {
+    _this._openPopup();
     _this.game._endRound();
   }
 }
@@ -80,7 +100,9 @@ if (typeof module === 'object') {
       OpenComponent: new OpenComponent(),
       TutorialComponent: new TutorialComponent(),
       GameComponent: new GameComponent(UserComponent, ComputerComponent),
-      CountbackComponent: new CountbackComponent()
+      CountbackComponent: new CountbackComponent(),
+      PopupComponent: new PopupComponent(),
+      KeyboardHelper: new KeyboardHelper()
     }
   );
   app._landingPage();

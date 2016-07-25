@@ -8,7 +8,7 @@ const rerequire = jsdom.rerequire;
 const sinon = require('sinon');
 
 const Component = require('../Component/Component');
-const Open = require('./Tutorial');
+const Tutorial = require('./Tutorial');
 
 describe('Tutorial', () => {
   let tutorial;
@@ -26,7 +26,7 @@ describe('Tutorial', () => {
     $ = rerequire('jquery');
   });
   beforeEach(function() {
-    tutorial = new Open(validTemplatePath, {onClick: onClick});
+    tutorial = new Tutorial(validTemplatePath, {onClick: onClick});
     simulant = require('simulant');
   });
 

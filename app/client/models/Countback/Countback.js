@@ -17,7 +17,6 @@ class CountbackComponent extends AbsComponent {
     super(root, store);
     this.delayTime = delayTime || 1000;
     this.texts = texts || [
-      'Choose NOW!',
       '3',
       '2',
       '1'
@@ -35,9 +34,14 @@ class CountbackComponent extends AbsComponent {
       }, _this.delayTime);
     } else {
       setTimeout(() => {
+        this.reset();
         callback(parent);
       }, _this.delayTime);
     }
+  }
+  reset() {
+    this.textState = 0;
+    this.changeText('');
   }
 };
 

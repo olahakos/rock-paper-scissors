@@ -41,4 +41,10 @@ describe('Player', () => {
         });
     });
   });
+  describe('#addFocus', () => {
+    it('should add an "active" class to the chosen element');
+  });
+  describe('#removeFocusAll', () => {
+    it('should remove the "active" class from every element');
+  });
 });

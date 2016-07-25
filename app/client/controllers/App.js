@@ -2,7 +2,7 @@
 /*global TutorialComponent:true*/
 /*global GameComponent:true*/
 /*global CountbackComponent:true*/
-/*global PlayerComponent:true*/
+/*global UserComponent:true*/
 /*global ComputerComponent:true*/
 /*global Controller:true*/
 
@@ -79,7 +79,7 @@ if (typeof module === 'object') {
     {
       OpenComponent: new OpenComponent(),
       TutorialComponent: new TutorialComponent(),
-      GameComponent: new GameComponent(PlayerComponent, ComputerComponent),
+      GameComponent: new GameComponent(UserComponent, ComputerComponent),
       CountbackComponent: new CountbackComponent()
     }
   );

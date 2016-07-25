@@ -11,6 +11,9 @@ class ComputerComponent extends AbsComponent {
   startGuess() {
     this.choice = Math.round(Math.random() * 2);
   }
+  endGuess() {
+    this.addFocus();
+  }
 };
 
 if (typeof module === 'object') {

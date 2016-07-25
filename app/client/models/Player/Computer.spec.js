@@ -20,7 +20,7 @@ describe('Computer', () => {
     });
   });
   describe('#startGuess', () => {
-    it('should build up the DOM based on the template', () => {
+    it('should generate the choice between 0-2', () => {
       computer.startGuess();
       expect(computer.choice).to.be.within(0, 2);
     });

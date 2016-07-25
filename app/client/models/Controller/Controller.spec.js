@@ -5,7 +5,7 @@ const chaiAsPromised = require('chai-as-promised');
 const expect = require('chai').expect;
 
 const Controller = require('./Controller');
-const MockedComponent = require('../../../mock/MockedComponent');
+const MockedComponent = require('../../../../mock/MockedComponent');
 
 chai.use(chaiAsPromised);
 

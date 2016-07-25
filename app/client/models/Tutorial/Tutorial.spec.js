@@ -7,7 +7,7 @@ const jsdom = require('mocha-jsdom');
 const rerequire = jsdom.rerequire;
 const sinon = require('sinon');
 
-const Component = require('../Component');
+const Component = require('../Component/Component');
 const Open = require('./Tutorial');
 
 describe('Tutorial', () => {

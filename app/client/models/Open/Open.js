@@ -2,7 +2,7 @@
 
 var AbsComponent;
 if (typeof Component === 'undefined') {
-  AbsComponent = require('../Component');
+  AbsComponent = require('../Component/Component');
 } else {
   AbsComponent = Component;
 }

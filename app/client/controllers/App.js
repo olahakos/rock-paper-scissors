@@ -5,7 +5,7 @@
 
 var AbsController;
 if (typeof Controller === 'undefined') {
-  AbsController = require('../models/Controller');
+  AbsController = require('../models/Controller/Controller');
 } else {
   AbsController = Controller;
 }

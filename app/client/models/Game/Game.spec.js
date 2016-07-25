@@ -6,7 +6,7 @@ const fs = require('fs-readfile-promise');
 const jsdom = require('mocha-jsdom');
 const rerequire = jsdom.rerequire;
 
-const Component = require('../Component');
+const Component = require('../Component/Component');
 const Game = require('./Game');
 const User = require('../../../../mock/MockedUser');
 const Computer = require('../../../../mock/MockedComputer');
@@ -64,10 +64,12 @@ describe('Game', () => {
       }
     });
   });
+
   describe('#_startRound', () => {
     it('should reset the variables');
     it('should start the countback');
   });
+
   describe('#_countback', () => {
     it('should handle the countback');
     it('should enable the choice for the players');

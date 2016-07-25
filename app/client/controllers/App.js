@@ -4,6 +4,8 @@
 /*global CountbackComponent:true*/
 /*global UserComponent:true*/
 /*global ComputerComponent:true*/
+/*global PopupComponent:true*/
+/*global KeyboardHelper:true*/
 /*global Controller:true*/
 
 var AbsController;
@@ -23,6 +25,15 @@ class App extends AbsController {
     this.tutorial = components.TutorialComponent;
     this.game = components.GameComponent;
     this.countback = components.CountbackComponent;
+    this.popup = components.PopupComponent;
+    this.keyHelper = components.KeyboardHelper;
+
+    this.keyHelper.subscribers([
+      this.open,
+      this.tutorial,
+      this.popup,
+      this.game
+    ]);
   }
   _landingPage() {
     return this.mountComponent(this.open, this.root);
@@ -32,27 +43,32 @@ class App extends AbsController {
   }
   _startGame(gameType) {
     return this.mountComponent(this.game, this.root)
-    .then(() => {
-      return this.game._startGame(gameType);
-    })
-    .then(() => {
-      const p1 = document.getElementById('p1');
-      return this.mountComponent(this.game.p1, p1);
-    })
-    .then(() => {
-      const p2 = document.getElementById('p2');
-      return this.mountComponent(this.game.p2, p2);
-    })
-    .then(() => {
-      return this.game._startGame(gameType);
-    })
-    .then(() => {
-      return this._startRound();
-    });
+      .then(() => {
+        return this.game._startGame(gameType);
+      })
+      .then(() => {
+        const p1 = document.getElementById('p1');
+        return this.mountComponent(this.game.p1, p1);
+      })
+      .then(() => {
+        const p2 = document.getElementById('p2');
+        return this.mountComponent(this.game.p2, p2);
+      })
+      .then(() => {
+        return this._openPopup();
+      });
+  }
+  _openPopup() {
+    const popup = document.getElementById('popupCnt');
+    return this.mountComponent(this.popup, popup);
+  }
+  _closePopup() {
+    document.getElementById('popupCnt').innerHTML = '';
   }
   _startRound() {
-    const countbackCnt = document.getElementById('countback');
-    this.mountComponent(this.countback, countbackCnt)
+    this._closePopup();
+    const countbackCnt = document.getElementById('countbackCnt');
+    return this.mountComponent(this.countback, countbackCnt)
       .then(() => {
         return this.countback.startCounter(
           this.countback,
@@ -65,6 +81,7 @@ class App extends AbsController {
       });
   }
   _endRound(_this) {
+    _this._openPopup();
     _this.game._endRound();
   }
 }
@@ -80,7 +97,9 @@ if (typeof module === 'object') {
       OpenComponent: new OpenComponent(),
       TutorialComponent: new TutorialComponent(),
       GameComponent: new GameComponent(UserComponent, ComputerComponent),
-      CountbackComponent: new CountbackComponent()
+      CountbackComponent: new CountbackComponent(),
+      PopupComponent: new PopupComponent(),
+      KeyboardHelper: new KeyboardHelper()
     }
   );
   app._landingPage();

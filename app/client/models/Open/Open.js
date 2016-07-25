@@ -12,14 +12,30 @@ class OpenComponent extends AbsComponent {
     root = root || '../../views/open.html';
     store = store || {
       headline: 'Rock - Papper -Scissors',
-      menu1: 'Player VS Computer',
-      menu2: 'Computer VS Computer',
-      tutorial: 'How to play',
-      tutorialOnClick: 'app._tutorialPage()',
+      menu1: '[1] Player VS Computer',
+      menu2: '[2] Computer VS Computer',
+      menu3: '[3] How to play',
       menu1OnClick: 'app._startGame("UVC")',
-      menu2OnClick: 'app._startGame("CVC")'
+      menu2OnClick: 'app._startGame("CVC")',
+      menu3OnClick: 'app._tutorialPage()'
     };
     super(root, store);
+  }
+  onKeyEvent(event) {
+    if (!document.getElementById('open')) { return; }
+    switch (event) {
+      case '1':
+        document.getElementById('menu1').click();
+        break;
+      case '2':
+        document.getElementById('menu2').click();
+        break;
+      case '3':
+        document.getElementById('menu3').click();
+        break;
+      default:
+        break;
+    }
   }
 };
 

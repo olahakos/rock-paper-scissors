@@ -19,21 +19,22 @@ describe('Player', () => {
   let $;
   before(function () {
     $ = rerequire('jquery');
+    document.body.innerHTML = '<div id="p1"></div>';
   });
 
   beforeEach(function() {
-    player = new Player(validTemplatePath);
+    player = new Player(validTemplatePath, {}, 1);
   });
 
   describe('#constructor', () => {
-    it('should create a new game object.', () => {
+    it('should create a new Player object.', () => {
       expect(new Player())
         .to.be.ok;
     });
     it('should build up the DOM based on the template', () => {
       return player.getHtml(fs, getData)
         .then(html => {
-          document.body.innerHTML = html;
+          $('#p1').html(html);
           expect($('.player').length).eql(1);
           expect($('.player h1').length).eql(1);
           expect($('.player ul').length).eql(1);
@@ -42,9 +43,28 @@ describe('Player', () => {
     });
   });
   describe('#addFocus', () => {
-    it('should add an "active" class to the chosen element');
+    it('should add an "active" class to the chosen element', () => {
+      return player.getHtml(fs, getData)
+        .then(html => {
+          $('#p1').html(html);
+          expect($('#p1 .active').length).eql(0);
+          player.addFocus();
+          expect($('#p1 .active').length).eql(1);
+        });
+    });
   });
   describe('#removeFocusAll', () => {
-    it('should remove the "active" class from every element');
+    it('should remove the "active" class from every element', () => {
+      return player.getHtml(fs, getData)
+        .then(html => {
+          $('#p1').html(html);
+          expect($('#p1 .active').length).eql(0);
+          player.addFocus();
+          expect($('#p1 .active').length).eql(1);
+          const root = document.getElementById('p1');
+          player.removeFocusAll(root);
+          expect($('#p1 .active').length).eql(0);
+        });
+    });
   });
 });

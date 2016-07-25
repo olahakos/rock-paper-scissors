@@ -71,7 +71,7 @@ describe('Countback', () => {
             return true;
           });
           this.clock.tick((countback.texts.length) * countback.delayTime + 10);
-          sinon.assert.callCount(spy, countback.texts.length);
+          sinon.assert.callCount(spy, countback.texts.length + 1);
         });
     });
     it('should call the main callback function after the countdown', () => {
@@ -86,6 +86,22 @@ describe('Countback', () => {
           );
           this.clock.tick((countback.texts.length) * countback.delayTime + 10);
           sinon.assert.calledOnce(spy);
+        });
+    });
+  });
+  describe('#reset', () => {
+    it('should reset the state', () => {
+      countback.textState = 2;
+      countback.reset();
+      expect(countback.textState).to.be.eql(0);
+    });
+    it('should reset text to an empty string', () => {
+      return countback.getHtml(fs, getData)
+        .then(html => {
+          document.body.innerHTML = html;
+          countback.changeText(changedText);
+          countback.reset();
+          expect($('#countback h1').html()).eql('');
         });
     });
   });

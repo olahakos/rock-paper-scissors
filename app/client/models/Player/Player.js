@@ -21,13 +21,14 @@ class PlayerComponent extends AbsComponent {
     return true;
   }
   addFocus() {
-    let root = document.getElementById(`p${this.position}`);
-    this.removeFocusAll(root);
+    const root = document.getElementById(`p${this.position}`);
+    this.removeFocusAll();
     root
       .querySelector(`li:nth-child(${this.choice + 1})`)
       .className = 'active';
   }
-  removeFocusAll(root) {
+  removeFocusAll() {
+    const root = document.getElementById(`p${this.position}`);
     for (let i = 1; i <= 3; i++) {
       root
         .querySelector(`li:nth-child(${i})`)

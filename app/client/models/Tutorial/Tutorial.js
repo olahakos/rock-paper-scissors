@@ -15,6 +15,12 @@ class TutorialComponent extends AbsComponent {
     };
     super(root, store);
   }
+  onKeyEvent(event) {
+    if (!document.getElementById('tutorial')) { return; }
+    if (event === 'Escape' || event === 'Enter') {
+      document.getElementById('tutorialBack').click();
+    }
+  }
 };
 
 if (typeof module === 'object') {

@@ -1,31 +1,90 @@
 'use strict';
+const path = require('path');
 
 const expect = require('chai').expect;
+const fs = require('fs-readfile-promise');
+const jsdom = require('mocha-jsdom');
+const rerequire = jsdom.rerequire;
+const sinon = require('sinon');
 
 const Component = require('../Component/Component');
 const Player = require('./Player');
-const User = require('./Computer');
+const User = require('./User');
 
 describe('User', () => {
   let user;
+  let simulant;
+
+  const validTemplatePath = path.resolve(__dirname, '../../views/Player.html');
+  const getData = (d) => (d.toString());
+
+  // setup jsdom
+  jsdom();
+  let $;
+  before(function () {
+    $ = rerequire('jquery');
+    document.body.innerHTML = '<div id="p1"></div>';
+    simulant = require('simulant');
+  });
 
   beforeEach(function() {
-    user = new User();
+    user = new User(validTemplatePath, {}, 1);
   });
 
   describe('#constructor', () => {
-    it('should create a new game object.', () => {
+    it('should create a new User object.', () => {
       expect(new User())
         .to.be.ok;
     });
   });
   describe('#startGuess', () => {
-    it('should start to listen to the keypresses', () => {
-
+    it('should start to listen to the key events', () => {
+      expect(user.listen).to.be.false;
+      user.removeFocusAll = () => {};
+      const spy = sinon.spy(user, 'removeFocusAll');
+      user.startGuess();
+      expect(user.listen).to.be.ok;
+      sinon.assert.calledOnce(spy);
     });
-    it('should choce the symbole based on the witch key has been pressed');
   });
   describe('#endGuess', () => {
-    it('should ignore to the keypress events from now');
+    it('should ignore to the keypress events from now', () => {
+      expect(user.listen).to.be.false;
+      user.removeFocusAll = () => {};
+      user.startGuess();
+      expect(user.listen).to.be.ok;
+      user.endGuess();
+      expect(user.listen).to.be.false;
+    });
+  });
+
+  describe('#onKeyEvent', () => {
+    it('should handle right if we add propper events', () => {
+      user.addFocus = () => {};
+      user.removeFocusAll = () => {};
+      const spy = sinon.spy(user, 'addFocus');
+      user.startGuess();
+      const keyEvent = Math.round(Math.random() * 2) + 1;
+      user.onKeyEvent(keyEvent.toString());
+      sinon.assert.calledOnce(spy);
+    });
+    it('should not rerender, if the event is not valid', () => {
+      user.addFocus = () => {};
+      user.removeFocusAll = () => {};
+      const spy = sinon.spy(user, 'addFocus');
+      user.startGuess();
+      user.onKeyEvent('Enter');
+      sinon.assert.notCalled(spy);
+    });
+    it('should not rerender, if we are not listen', () => {
+      user.addFocus = () => {};
+      user.removeFocusAll = () => {};
+      const spy = sinon.spy(user, 'addFocus');
+      user.startGuess();
+      user.endGuess();
+      const keyEvent = Math.round(Math.random() * 2) + 1;
+      user.onKeyEvent(keyEvent.toString());
+      sinon.assert.notCalled(spy);
+    });
   });
 });

@@ -33,7 +33,12 @@ class GameComponent extends AbsComponent {
     }
   }
   _startRound() {
-
+    this.p1.startGuess();
+    this.p2.startGuess();
+  }
+  _endRound() {
+    this.p1.endGuess();
+    this.p2.endGuess();
   }
 };
 

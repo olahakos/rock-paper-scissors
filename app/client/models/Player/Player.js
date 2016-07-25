@@ -13,6 +13,12 @@ class PlayerComponent extends AbsComponent {
     super(root, store);
     this.choice = 0;
   }
+  startGuess() {
+    return true;
+  }
+  endGuess() {
+    return true;
+  }
 };
 
 if (typeof module === 'object') {

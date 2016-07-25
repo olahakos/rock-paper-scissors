@@ -79,9 +79,11 @@ describe('Countback', () => {
         .then(html => {
           const spy = sinon.spy(window, 'alert');
           document.body.innerHTML = html;
-          countback.startCounter(countback, () => {
-            window.alert(callbackMessage);
-          });
+          countback.startCounter(
+            countback,
+            () => { window.alert(callbackMessage); },
+            this
+          );
           this.clock.tick((countback.texts.length) * countback.delayTime + 10);
           sinon.assert.calledOnce(spy);
         });

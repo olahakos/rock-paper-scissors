@@ -3,6 +3,7 @@
 /*global GameComponent:true*/
 /*global CountbackComponent:true*/
 /*global PlayerComponent:true*/
+/*global ComputerComponent:true*/
 /*global Controller:true*/
 
 var AbsController;
@@ -53,11 +54,18 @@ class App extends AbsController {
     const countbackCnt = document.getElementById('countback');
     this.mountComponent(this.countback, countbackCnt)
       .then(() => {
-        return this.countback.startCounter(this.countback, this._endRound);
+        return this.countback.startCounter(
+          this.countback,
+          this._endRound,
+          this
+        );
+      })
+      .then(() => {
+        return this.game._startRound();
       });
   }
-  _endRound() {
-    // TODO: end the round
+  _endRound(_this) {
+    _this.game._endRound();
   }
 }
 
@@ -71,7 +79,7 @@ if (typeof module === 'object') {
     {
       OpenComponent: new OpenComponent(),
       TutorialComponent: new TutorialComponent(),
-      GameComponent: new GameComponent(PlayerComponent, PlayerComponent),
+      GameComponent: new GameComponent(PlayerComponent, ComputerComponent),
       CountbackComponent: new CountbackComponent()
     }
   );

@@ -27,14 +27,16 @@ class CountbackComponent extends AbsComponent {
   changeText(newText) {
     document.getElementById('counter').innerHTML = newText;
   }
-  startCounter(_this, callback) {
+  startCounter(_this, callback, parent) {
     _this.changeText(_this.texts[_this.textState]);
     if (++_this.textState < _this.texts.length) {
       setTimeout(() => {
-        _this.startCounter(_this, callback);
+        _this.startCounter(_this, callback, parent);
       }, _this.delayTime);
     } else {
-      setTimeout(callback, _this.delayTime);
+      setTimeout(() => {
+        callback(parent);
+      }, _this.delayTime);
     }
   }
 };

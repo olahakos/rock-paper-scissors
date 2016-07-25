@@ -29,13 +29,9 @@ describe('Countback', () => {
 
   beforeEach(function() {
     countback = new Countback(
-      () => { window.alert(callbackMessage); },
       validTemplatePath,
       {counter: initH1}
     );
-  });
-  afterEach(function() {
-    // this.clock.restore();
   });
 
   describe('#constructor', () => {
@@ -65,13 +61,15 @@ describe('Countback', () => {
     });
   });
 
-  describe('#counter', () => {
+  describe('#startCounter', () => {
     it('should call the text changer time by time', () => {
       return countback.getHtml(fs, getData)
         .then(html => {
           const spy = sinon.spy(countback, 'changeText');
           document.body.innerHTML = html;
-          countback.counter(countback);
+          countback.startCounter(countback, () => {
+            return true;
+          });
           this.clock.tick((countback.texts.length) * countback.delayTime + 10);
           sinon.assert.callCount(spy, countback.texts.length);
         });
@@ -81,7 +79,9 @@ describe('Countback', () => {
         .then(html => {
           const spy = sinon.spy(window, 'alert');
           document.body.innerHTML = html;
-          countback.counter(countback);
+          countback.startCounter(countback, () => {
+            window.alert(callbackMessage);
+          });
           this.clock.tick((countback.texts.length) * countback.delayTime + 10);
           sinon.assert.calledOnce(spy);
         });

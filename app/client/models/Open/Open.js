@@ -16,8 +16,8 @@ class OpenComponent extends AbsComponent {
       menu2: 'Computer VS Computer',
       tutorial: 'How to play',
       tutorialOnClick: 'app._tutorialPage()',
-      menu1OnClick: 'app._startGame(1)',
-      menu2OnClick: 'app._startGame(2)'
+      menu1OnClick: 'app._startGame("UVC")',
+      menu2OnClick: 'app._startGame("CVC")'
     };
     super(root, store);
   }

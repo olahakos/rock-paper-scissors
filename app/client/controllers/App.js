@@ -1,6 +1,8 @@
 /*global OpenComponent:true*/
 /*global TutorialComponent:true*/
 /*global GameComponent:true*/
+/*global CountbackComponent:true*/
+/*global PlayerComponent:true*/
 /*global Controller:true*/
 
 var AbsController;
@@ -19,6 +21,7 @@ class App extends AbsController {
     this.open = components.OpenComponent;
     this.tutorial = components.TutorialComponent;
     this.game = components.GameComponent;
+    this.countback = components.CountbackComponent;
   }
   _landingPage() {
     return this.mountComponent(this.open, this.root);
@@ -27,8 +30,34 @@ class App extends AbsController {
     return this.mountComponent(this.tutorial, this.root);
   }
   _startGame(gameType) {
-    // TODO: start game function
-    return this.mountComponent(this.game, this.root);
+    return this.mountComponent(this.game, this.root)
+    .then(() => {
+      return this.game._startGame(gameType);
+    })
+    .then(() => {
+      const p1 = document.getElementById('p1');
+      return this.mountComponent(this.game.p1, p1);
+    })
+    .then(() => {
+      const p2 = document.getElementById('p2');
+      return this.mountComponent(this.game.p2, p2);
+    })
+    .then(() => {
+      return this.game._startGame(gameType);
+    })
+    .then(() => {
+      return this._startRound();
+    });
+  }
+  _startRound() {
+    const countbackCnt = document.getElementById('countback');
+    this.mountComponent(this.countback, countbackCnt)
+      .then(() => {
+        return this.countback.startCounter(this.countback, this._endRound);
+      });
+  }
+  _endRound() {
+    // TODO: end the round
   }
 }
 
@@ -42,7 +71,8 @@ if (typeof module === 'object') {
     {
       OpenComponent: new OpenComponent(),
       TutorialComponent: new TutorialComponent(),
-      GameComponent: new GameComponent()
+      GameComponent: new GameComponent(PlayerComponent, PlayerComponent),
+      CountbackComponent: new CountbackComponent()
     }
   );
   app._landingPage();

@@ -1,12 +1,20 @@
-class Player {
-  constructor () {
-    this.resetRound();
-  }
-  resetRound() {
-    this.choice = null;
+/*global Component:true*/
+
+var AbsComponent;
+if (typeof Component === 'undefined') {
+  AbsComponent = require('../Component/Component');
+} else {
+  AbsComponent = Component;
+}
+
+class PlayerComponent extends AbsComponent {
+  constructor(root, store) {
+    root = root || '../../views/Player.html';
+    super(root, store);
+    this.choice = 0;
   }
 };
 
 if (typeof module === 'object') {
-  module.exports = Player;
+  module.exports = PlayerComponent;
 }

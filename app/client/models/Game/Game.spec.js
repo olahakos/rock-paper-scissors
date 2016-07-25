@@ -24,7 +24,7 @@ describe('Game', () => {
   });
 
   beforeEach(function() {
-    game = new Game(User, Computer);
+    game = new Game(User, Computer, validTemplatePath);
   });
 
   describe('#constructor', () => {
@@ -33,6 +33,16 @@ describe('Game', () => {
         .to.be.ok;
       expect(new Game(User, Computer))
         .to.be.ok;
+    });
+    it('should build up the DOM based on the template', () => {
+      return game.getHtml(fs, getData)
+        .then(html => {
+          document.body.innerHTML = html;
+          expect($('#game').length).eql(1);
+          expect($('#game #p1').length).eql(1);
+          expect($('#game #p2').length).eql(1);
+          expect($('#game #countback').length).eql(1);
+        });
     });
   });
 

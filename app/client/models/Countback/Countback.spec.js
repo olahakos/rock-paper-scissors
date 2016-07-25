@@ -1,10 +1,12 @@
 'use strict';
 const path = require('path');
 
+const assert = require('sinon').assert;
 const expect = require('chai').expect;
 const fs = require('fs-readfile-promise');
 const jsdom = require('mocha-jsdom');
 const rerequire = jsdom.rerequire;
+const sinon = require('sinon');
 
 const Component = require('../Component/Component');
 const Countback = require('./Countback');
@@ -15,6 +17,8 @@ describe('Countback', () => {
   const getData = (d) => (d.toString());
   const initH1 = 'Round 1';
   const changedText = '3';
+  const callbackMessage = 'callback';
+  this.clock = sinon.useFakeTimers();
 
   // setup jsdom
   jsdom();
@@ -25,9 +29,13 @@ describe('Countback', () => {
 
   beforeEach(function() {
     countback = new Countback(
+      () => { window.alert(callbackMessage); },
       validTemplatePath,
       {counter: initH1}
     );
+  });
+  afterEach(function() {
+    // this.clock.restore();
   });
 
   describe('#constructor', () => {
@@ -58,7 +66,25 @@ describe('Countback', () => {
   });
 
   describe('#counter', () => {
-    it('should call the text changer time by time');
-    it('should call the main callback function after the countdown');
+    it('should call the text changer time by time', () => {
+      return countback.getHtml(fs, getData)
+        .then(html => {
+          const spy = sinon.spy(countback, 'changeText');
+          document.body.innerHTML = html;
+          countback.counter(countback);
+          this.clock.tick((countback.texts.length) * countback.delayTime + 10);
+          sinon.assert.callCount(spy, countback.texts.length);
+        });
+    });
+    it('should call the main callback function after the countdown', () => {
+      return countback.getHtml(fs, getData)
+        .then(html => {
+          const spy = sinon.spy(window, 'alert');
+          document.body.innerHTML = html;
+          countback.counter(countback);
+          this.clock.tick((countback.texts.length) * countback.delayTime + 10);
+          sinon.assert.calledOnce(spy);
+        });
+    });
   });
 });

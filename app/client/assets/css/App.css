@@ -21,15 +21,19 @@ body {
 .flexcnt{
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  height: 100%;
 }
 
-body{
+html, body{
   background-color: #F5FCFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 400px;
+  height:100%;
+  width: 100%;
+}
+
+#root{
+  height: 100%;
+  width: 100%;
 }
 
 h1 {

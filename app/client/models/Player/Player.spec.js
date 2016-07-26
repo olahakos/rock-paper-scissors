@@ -37,8 +37,8 @@ describe('Player', () => {
           $('#p1').html(html);
           expect($('.player').length).eql(1);
           expect($('.player h1').length).eql(1);
-          expect($('.player ul').length).eql(1);
-          expect($('.player li').length).eql(3);
+          expect($('.player .buttonCnt').length).eql(1);
+          expect($('.buttonCnt div').length).eql(3);
         });
     });
   });

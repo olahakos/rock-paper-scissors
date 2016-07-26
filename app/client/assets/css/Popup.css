@@ -1,11 +1,19 @@
 #popup{
   text-align: left;
   padding: 30px;
-  margin: 40px;
   background-color: white;
   border-radius: 10px;
   text-align: center;
-  max-width: 500px;
+
+  position: absolute;
+  margin: 40px -25%;
+  bottom: 10px;
+  width: 50%;
+  left: 50%;
+}
+
+#popup.middle {
+  top: 50%;
 }
 
 #popup .details {
@@ -26,7 +34,7 @@
 #popup .buttonCnt{
   display: flex;
   align-items: baseline;
-  justify-content: space-around;
+  justify-content: center;;
 }
 #popup .btn{
   border-radius: 5px;

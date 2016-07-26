@@ -81,8 +81,12 @@ class App extends AbsController {
       });
   }
   _endRound(_this) {
-    _this._openPopup();
     _this.game._endRound();
+    _this.popup.updateTexts({
+      winnerText: _this.game.winnerText,
+      points: _this.game.points
+    });
+    _this._openPopup();
   }
 }
 

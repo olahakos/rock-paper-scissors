@@ -128,11 +128,14 @@ describe('App', () => {
       app.mountComponent(app.game, app.root);
       app._openPopup = () => {};
       app.game._endRound = () => {};
+      app.popup.updateTexts = () => {};
       const spy1 = sinon.spy(app, '_openPopup');
       const spy2 = sinon.spy(app.game, '_endRound');
+      const spy3 = sinon.spy(app.popup, 'updateTexts');
       app._endRound(app);
       sinon.assert.calledOnce(spy1);
       sinon.assert.calledOnce(spy2);
+      sinon.assert.calledOnce(spy3);
     });
   });
 });

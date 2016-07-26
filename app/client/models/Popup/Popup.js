@@ -21,6 +21,12 @@ class PopupComponent extends AbsComponent {
     };
     super(root, store);
   }
+  updateTexts(params) {
+    this.store.headline = params.winnerText;
+    this.store.points = `${params.points[0]} / ${params.points[1]}`;
+    this.store.startText = 'Next Round';
+    this.store.backText = 'Quit Game';
+  }
   onKeyEvent(event) {
     if (!document.getElementById('popup')) { return; }
     switch (event) {

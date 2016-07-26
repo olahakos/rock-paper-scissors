@@ -27,6 +27,7 @@ class CountbackComponent extends AbsComponent {
     document.getElementById('counter').innerHTML = newText;
   }
   startCounter(_this, callback, parent) {
+    document.getElementById('countback').className = '';
     _this.changeText(_this.texts[_this.textState]);
     if (++_this.textState < _this.texts.length) {
       setTimeout(() => {
@@ -42,6 +43,7 @@ class CountbackComponent extends AbsComponent {
   reset() {
     this.textState = 0;
     this.changeText('');
+    document.getElementById('countback').className = 'hidden';
   }
 };
 

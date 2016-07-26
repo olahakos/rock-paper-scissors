@@ -16,6 +16,23 @@ describe('Popup', () => {
   const validTemplatePath = path.resolve(__dirname, '../../views/Popup.html');
   const getData = (d) => (d.toString());
 
+  const initData = {
+    headline: 'Round 1',
+    points: '0 / 0',
+    details: 'You have 3 secound to choose. Push the [1] [2] [3] buttons to select you symbole.',
+    startText: 'Start Game',
+    startClick: 'app._startRound()',
+    backText: 'Back',
+    backClick: 'app._landingPage()'
+  };
+
+  const updateData = {
+    winnerText: 'Winner',
+    points: [2, 3],
+    startText: 'ng',
+    backText: 'qg'
+  };
+
   // setup jsdom
   jsdom();
   let $;
@@ -23,7 +40,7 @@ describe('Popup', () => {
     $ = rerequire('jquery');
   });
   beforeEach(function() {
-    popup = new Popup(validTemplatePath);
+    popup = new Popup(validTemplatePath, initData);
   });
 
   describe('#constructor', () => {
@@ -43,6 +60,50 @@ describe('Popup', () => {
           expect($('#popup .buttonCnt').length).eql(1);
           expect($('#popup .buttonCnt button').length).eql(2);
         });
+    });
+  });
+  describe('#onKeyEvent', () => {
+    it('should Handle the "Escape" key propperly', () => {
+      return popup.getHtml(fs, getData)
+        .then(html => {
+          document.body.innerHTML = html;
+          const spy = sinon.spy(document.getElementById('popupBack'), 'click');
+          popup.onKeyEvent('Escape');
+          sinon.assert.calledOnce(spy);
+        });
+    });
+    it('should Handle the "Enter" key propperly', () => {
+      return popup.getHtml(fs, getData)
+        .then(html => {
+          document.body.innerHTML = html;
+          const spy = sinon.spy(document.getElementById('popupStart'), 'click');
+          popup.onKeyEvent('Enter');
+          sinon.assert.calledOnce(spy);
+        });
+    });
+    it('should not do anything if the popup element is not in the DOM', () => {
+      document.body.innerHTML = '<div></div>';
+      const spy = sinon.spy(document, 'getElementById');
+      popup.onKeyEvent('Enter');
+      sinon.assert.calledOnce(spy);
+    });
+  });
+  describe('#updateTexts', () => {
+    it('should update teh store datas', () => {
+      popup.updateTexts(updateData);
+      expect(popup.store.headline)
+        .to.be.eql(updateData.winnerText);
+      expect(popup.store.startText)
+        .to.be.eql(updateData.startText);
+      expect(popup.store.backText)
+        .to.be.eql(updateData.backText);
+    });
+  });
+  describe('#reset', () => {
+    it('should reset the store to the original texts', () => {
+      popup.updateTexts(updateData);
+      popup.reset();
+      expect(popup.store).to.be.eql(initData);
     });
   });
 });

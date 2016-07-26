@@ -10,22 +10,14 @@ if (typeof Component === 'undefined') {
 class PopupComponent extends AbsComponent {
   constructor(root, store) {
     root = root || '../../views/Popup.html';
-    store = store || {
-      headline: 'Round 1',
-      points: '0 / 0',
-      details: 'You have 3 secound to choose. Push the [1] [2] [3] buttons to select you symbole.',
-      startText: 'Start Game',
-      startClick: 'app._startRound()',
-      backText: 'Back',
-      backClick: 'app._landingPage()'
-    };
     super(root, store);
+    this.reset();
   }
   updateTexts(params) {
     this.store.headline = params.winnerText;
     this.store.points = `${params.points[0]} / ${params.points[1]}`;
-    this.store.startText = 'Next Round';
-    this.store.backText = 'Quit Game';
+    this.store.startText = params.startText || 'Next Round';
+    this.store.backText = params.backText || 'Quit Game';
   }
   onKeyEvent(event) {
     if (!document.getElementById('popup')) { return; }
@@ -39,6 +31,17 @@ class PopupComponent extends AbsComponent {
       default:
         break;
     }
+  }
+  reset(store) {
+    this.store = {
+      headline: 'Round 1',
+      points: '0 / 0',
+      details: 'You have 3 secound to choose. Push the [1] [2] [3] buttons to select you symbole.',
+      startText: 'Start Game',
+      startClick: 'app._startRound()',
+      backText: 'Back',
+      backClick: 'app._landingPage()'
+    };
   }
 };
 

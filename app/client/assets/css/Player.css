@@ -1,3 +1,14 @@
 .active{
   color: green;
 }
+.player{
+  position: absolute;
+  top:0;
+}
+.player1{
+  left: 0px;
+}
+
+.player2{
+  right: 0px;
+}

@@ -11,7 +11,7 @@ class OpenComponent extends AbsComponent {
   constructor(root, store) {
     root = root || '../../views/open.html';
     store = store || {
-      headline: 'Rock - Papper -Scissors',
+      headline: 'Rock - Papper - Scissors',
       menu1: '[1] Player VS Computer',
       menu2: '[2] Computer VS Computer',
       menu3: '[3] How to play',

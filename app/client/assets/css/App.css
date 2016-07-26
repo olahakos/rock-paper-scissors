@@ -23,3 +23,20 @@ body {
   align-items: center;
   justify-content: space-between;
 }
+
+body{
+  background-color: #F5FCFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+h1 {
+  font-size: 35px;
+}
+
+.hidden {
+  display: none;
+  visibility: hidden;
+}

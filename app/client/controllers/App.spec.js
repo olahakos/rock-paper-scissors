@@ -50,6 +50,7 @@ describe('App', () => {
   describe('#_landingPage', () => {
     it('should load the content of the OpenComponent', () => {
       const app = new App(document.body, validComponentParams);
+      app.popup.reset = () => {};
       return app._landingPage()
         .then(() => {
           expect(document.body.innerHTML).to.be.eql(mockHtml);
@@ -72,6 +73,7 @@ describe('App', () => {
       const app = new App(document.body, validComponentParams);
       app.game._startGame = () => {};
       app._openPopup = () => {};
+      app.popup.reset = () => {};
       const spy1 = sinon.spy(app, '_openPopup');
       const spy2 = sinon.spy(app, 'mountComponent');
       return app._startGame()

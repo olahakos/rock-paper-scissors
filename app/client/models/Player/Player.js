@@ -13,6 +13,7 @@ class PlayerComponent extends AbsComponent {
     super(root, store);
     this.choice = 0;
     this.position = position;
+    this.store.position = position;
     this.name = (store && store.name) ? store.name : 'Anonymus';
   }
   startGuess() {

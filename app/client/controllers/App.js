@@ -36,6 +36,7 @@ class App extends AbsController {
     ]);
   }
   _landingPage() {
+    this.popup.reset();
     return this.mountComponent(this.open, this.root);
   }
   _tutorialPage() {
@@ -64,6 +65,8 @@ class App extends AbsController {
   }
   _closePopup() {
     document.getElementById('popupCnt').innerHTML = '';
+    document.getElementById('p1').className = '';
+    document.getElementById('p2').className = '';
   }
   _startRound() {
     this._closePopup();

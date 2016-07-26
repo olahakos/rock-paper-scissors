@@ -10,7 +10,9 @@ if (typeof PlayerComponent === 'undefined') {
 class UserComponent extends AbsComponent {
   constructor(root, store, position) {
     super(root, store, position);
+    this.store.onClick = 'app.game.p1.onClickEvent(this)';
     this.listen = false;
+    this.store.isUser = 'user';
   }
   startGuess() {
     this.removeFocusAll();
@@ -39,6 +41,10 @@ class UserComponent extends AbsComponent {
     if (needRender) {
       this.addFocus();
     }
+  }
+  onClickEvent(caller) {
+    if (!this.listen) { return; }
+    this.onKeyEvent(caller.getAttribute('val'));
   }
 };
 

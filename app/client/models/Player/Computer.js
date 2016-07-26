@@ -8,6 +8,10 @@ if (typeof PlayerComponent === 'undefined') {
 }
 
 class ComputerComponent extends AbsComponent {
+  constructor(root, store, position) {
+    super(root, store, position);
+    this.store.onClick = 'return(true)';
+  }
   startGuess() {
     this.removeFocusAll();
     this.choice = Math.round(Math.random() * 2);

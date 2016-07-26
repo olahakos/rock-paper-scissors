@@ -87,4 +87,43 @@ describe('User', () => {
       sinon.assert.notCalled(spy);
     });
   });
+  describe('#onClickEvent', () => {
+    it('should handle the click events if the object is listening', () => {
+      return user.getHtml(fs, getData)
+        .then(html => {
+          $('#p1').html(html);
+          user.onKeyEvent = () => {};
+          user.addFocus = () => {};
+          user.removeFocusAll = () => {};
+          const spy = sinon.spy(user, 'onKeyEvent');
+          user.startGuess();
+          const keyEvent = Math.round(Math.random() * 2);
+          const caller = document
+            .getElementById('p1')
+            .getElementsByClassName('buttonCnt')[0]
+            .querySelector(`div:nth-child(${keyEvent + 1})`);
+          user.onClickEvent(caller);
+          sinon.assert.calledOnce(spy);
+        });
+    });
+    it('should deny the click event if it\'s not listening', () => {
+      return user.getHtml(fs, getData)
+        .then(html => {
+          $('#p1').html(html);
+          user.onKeyEvent = () => {};
+          user.addFocus = () => {};
+          user.removeFocusAll = () => {};
+          const spy = sinon.spy(user, 'onKeyEvent');
+          user.startGuess();
+          user.endGuess();
+          const keyEvent = Math.round(Math.random() * 2);
+          const caller = document
+            .getElementById('p1')
+            .getElementsByClassName('buttonCnt')[0]
+            .querySelector(`div:nth-child(${keyEvent + 1})`);
+          user.onClickEvent(caller);
+          sinon.assert.notCalled(spy);
+        });
+    });
+  });
 });

@@ -1,6 +1,6 @@
 {
   "name": "rock-paper-scissors",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Rock - Papper - Scissors",
   "main": "src/app.js",
   "scripts": {

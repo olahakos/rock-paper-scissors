@@ -1,0 +1,43 @@
+#open{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.centerBox{
+  text-align: left;
+  padding: 30px;
+  padding-bottom: 10px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+#open .menuCnt {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+#open li {
+  list-style: none;
+}
+
+#open a {
+  text-decoration: none;
+  color: gray;
+  font-size: 20px;
+}
+
+#open a:hover {
+  color: black;
+}
+
+#open p{
+  text-align: right;
+  margin-bottom: 0px;
+  font-size: 12px;
+  color: #666;
+}

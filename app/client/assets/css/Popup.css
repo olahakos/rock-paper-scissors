@@ -1,0 +1,36 @@
+#popup h1{
+  text-align: center;
+}
+
+#popup .details {
+  font-size: 20px;
+  font-weight: 300;
+}
+
+#popup .points {
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#popup .lead {
+  font-size: 20px;
+  color: gray;
+  margin-bottom: 15px;
+}
+
+#popup .buttonCnt{
+  display: flex;
+  align-items: baseline;
+  justify-content: center;;
+  margin-bottom: 20px;
+}
+
+#popup .btn{
+  margin: 10px;
+}
+
+#popup .result {
+  text-align: center;
+}

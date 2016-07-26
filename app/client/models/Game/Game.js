@@ -18,9 +18,10 @@ class GameComponent extends AbsComponent {
     this.ComputerClass = ComputerClass;
     this.p1 = this.p2 = {};
     this.components = [];
+    this.winnerText = '';
   }
   _startGame(gameType) {
-    this.components = [];
+    this.reset();
     switch (gameType) {
       case 'UVC':
         this.p1 = new this.UserClass(null, {name: 'Player 1 - User'}, 1);
@@ -38,18 +39,43 @@ class GameComponent extends AbsComponent {
   _startRound() {
     this.p1.startGuess(this._addFocus);
     this.p2.startGuess(this._addFocus);
+    this.rounds++;
   }
   _endRound() {
     this.p1.endGuess();
     this.p2.endGuess();
-    console.log(this.p1.choice);
-    console.log(this.p2.choice);
+    const winner = this.whoWon(this.p1.choice, this.p2.choice);
+    switch (winner) {
+      case 1:
+        this.points[0]++;
+        break;
+      case 2:
+        this.points[1]++;
+        break;
+      default:
+        break;
+    }
+    this.winnerText = (winner > 0) ? this[`p${winner}`].name + ' WON' : 'I\'s a draw';
+  }
+  whoWon(c1, c2) {
+    if (c1 === 0 && c2 === 1) { return 2; } // Papper beats Rock
+    if (c1 === 0 && c2 === 2) { return 1; } // Rock beats Scissors
+    if (c1 === 1 && c2 === 2) { return 2; } // Scissors beats Papper
+    if (c1 === 1 && c2 === 0) { return 1; } // Papper beats Rock
+    if (c1 === 2 && c2 === 0) { return 2; } // Rock beats Scissors
+    if (c1 === 2 && c2 === 1) { return 1; } // Scissors beats Papper
+    return 0;
   }
   onKeyEvent(event) {
     if (!document.getElementById('game')) { return; }
     this.components.forEach(comp => {
       comp.onKeyEvent(event);
     });
+  }
+  reset() {
+    this.components = [];
+    this.points = [0, 0];
+    this.rounds = 1;
   }
 };
 

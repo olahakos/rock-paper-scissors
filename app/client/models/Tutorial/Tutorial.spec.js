@@ -37,12 +37,11 @@ describe('Tutorial', () => {
         expect($('div#tutorial').length).eql(1);
       });
   });
-  it('should have a <div> with .details class and with 3 <p> paragraph', function () {
+  it('should have a <div> with .details class', function () {
     return tutorial.getHtml(fs, getData)
       .then(html => {
         document.body.innerHTML = html;
         expect($('div.details').length).eql(1);
-        expect($('div.details p').length).eql(3);
       });
   });
   it('should have a <div> with .rules class, with an <ul> and 3 <li> rows', function () {

@@ -23,17 +23,20 @@ class PlayerComponent extends AbsComponent {
     return true;
   }
   addFocus() {
-    const root = document.getElementById(`p${this.position}`);
     this.removeFocusAll();
-    root
-      .querySelector(`li:nth-child(${this.choice + 1})`)
+    document
+      .getElementById(`p${this.position}`)
+      .getElementsByClassName('buttonCnt')[0]
+      .querySelector(`div:nth-child(${this.choice + 1})`)
       .className = 'active';
   }
   removeFocusAll() {
     const root = document.getElementById(`p${this.position}`);
     for (let i = 1; i <= 3; i++) {
-      root
-        .querySelector(`li:nth-child(${i})`)
+      document
+        .getElementById(`p${this.position}`)
+        .getElementsByClassName('buttonCnt')[0]
+        .querySelector(`div:nth-child(${i})`)
         .className = '';
     }
   }

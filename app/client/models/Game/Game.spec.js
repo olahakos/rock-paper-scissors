@@ -92,14 +92,6 @@ describe('Game', () => {
       sinon.assert.calledOnce(spy1);
       sinon.assert.calledOnce(spy2);
     });
-    it('should increase the number of rounds', () => {
-      game._startGame('UVC');
-      game.p1.startGuess = game.p2.startGuess = () => {};
-      const prevRoundNumber = game.rounds;
-      game._startRound();
-      expect(game.rounds)
-        .to.be.eql(prevRoundNumber + 1);
-    });
   });
 
   describe('#_endRound', () => {
@@ -145,7 +137,7 @@ describe('Game', () => {
       game.p1.name = 'p1';
       game.p2.name = 'p2';
       game._endRound();
-      expect(game.winnerText).to.be.eql('I\'s a draw');
+      expect(game.winnerText).to.be.eql('I\'s a DRAW!');
     });
   });
   describe('#whoWon', () => {
@@ -153,7 +145,7 @@ describe('Game', () => {
       for (let i = 0; i < 10; i++) {
         const rand1 = Math.round(Math.random() * 2);
         const rand2 = Math.round(Math.random() * 2);
-        expect(game.whoWon(rand1, rand2)).to.be.within(0, 2);
+        expect(game.whoWon(rand1, rand2).winner).to.be.within(0, 2);
       }
     });
   });
@@ -165,7 +157,6 @@ describe('Game', () => {
       game.reset();
       expect(game.points).to.be.eql([0, 0]);
       expect(game.components).to.be.eql([]);
-      expect(game.rounds).to.be.eql(1);
     });
   });
   describe('#onKeyEvent', () => {

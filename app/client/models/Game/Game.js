@@ -24,13 +24,13 @@ class GameComponent extends AbsComponent {
     this.reset();
     switch (gameType) {
       case 'UVC':
-        this.p1 = new this.UserClass(null, {name: 'Player 1 - User'}, 1);
-        this.p2 = new this.ComputerClass(null, {name: 'Player 2 - Computer'}, 2);
+        this.p1 = new this.UserClass(null, {name: 'You'}, 1);
+        this.p2 = new this.ComputerClass(null, {name: 'Computer'}, 2);
         this.components.push(this.p1);
         break;
       case 'CVC':
-        this.p1 = new this.ComputerClass(null, {name: 'Player 1 - Computer'}, 1);
-        this.p2 = new this.ComputerClass(null, {name: 'Player 2 - Computer'}, 2);
+        this.p1 = new this.ComputerClass(null, {name: 'Computer 1'}, 1);
+        this.p2 = new this.ComputerClass(null, {name: 'Computer 2'}, 2);
         break;
       default:
         throw new ParamException('No gameType added');
@@ -39,12 +39,11 @@ class GameComponent extends AbsComponent {
   _startRound() {
     this.p1.startGuess(this._addFocus);
     this.p2.startGuess(this._addFocus);
-    this.rounds++;
   }
   _endRound() {
     this.p1.endGuess();
     this.p2.endGuess();
-    const winner = this.whoWon(this.p1.choice, this.p2.choice);
+    const {winner, txt} = this.whoWon(this.p1.choice, this.p2.choice);
     switch (winner) {
       case 1:
         this.points[0]++;
@@ -55,16 +54,50 @@ class GameComponent extends AbsComponent {
       default:
         break;
     }
-    this.winnerText = (winner > 0) ? this[`p${winner}`].name + ' WON' : 'I\'s a draw';
+    this.winnerText = (winner > 0) ? this[`p${winner}`].name + ' WON' : 'I\'s a DRAW!';
+    this.result = txt;
   }
   whoWon(c1, c2) {
-    if (c1 === 0 && c2 === 1) { return 2; } // Papper beats Rock
-    if (c1 === 0 && c2 === 2) { return 1; } // Rock beats Scissors
-    if (c1 === 1 && c2 === 2) { return 2; } // Scissors beats Papper
-    if (c1 === 1 && c2 === 0) { return 1; } // Papper beats Rock
-    if (c1 === 2 && c2 === 0) { return 2; } // Rock beats Scissors
-    if (c1 === 2 && c2 === 1) { return 1; } // Scissors beats Papper
-    return 0;
+    if (c1 === 0 && c2 === 1) {
+      return ({
+        winner: 2,
+        txt: 'Rock beats Papper'
+      });
+    } // Papper beats Rock
+    if (c1 === 0 && c2 === 2) {
+      return ({
+        winner: 1,
+        txt: 'Scissors beats Rock'
+      });
+    } // Rock beats Scissors
+    if (c1 === 1 && c2 === 2) {
+      return ({
+        winner: 2,
+        txt: 'Scissors beats Papper'
+      });
+    }
+    if (c1 === 1 && c2 === 0) {
+      return ({
+        winner: 1,
+        txt: 'Papper beats Rock'
+      });
+    }
+    if (c1 === 2 && c2 === 0) {
+      return ({
+        winner: 2,
+        txt: 'Rock beats Scissors'
+      });
+    }
+    if (c1 === 2 && c2 === 1) {
+      return ({
+        winner: 1,
+        txt: 'Scissors beats Papper'
+      });
+    }
+    return {
+      winner: 0,
+      txt: 'No points for today...'
+    };
   }
   onKeyEvent(event) {
     if (!document.getElementById('game')) { return; }
@@ -75,7 +108,6 @@ class GameComponent extends AbsComponent {
   reset() {
     this.components = [];
     this.points = [0, 0];
-    this.rounds = 1;
   }
 };
 

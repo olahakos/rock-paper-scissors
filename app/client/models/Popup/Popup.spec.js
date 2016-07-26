@@ -18,17 +18,19 @@ describe('Popup', () => {
 
   const initData = {
     headline: 'Round 1',
-    points: '0 / 0',
-    details: 'You have 3 secound to choose. Push the [1] [2] [3] buttons to select you symbole.',
-    startText: 'Start Game',
+    points: '',
+    result: '',
+    details: 'You have <b>3 secounds</b> to choose.<br/>Push the <b>[1] [2] [3]</b> buttons to select you weapon.',
+    startText: 'Start Game [ENTER]',
     startClick: 'app._startRound()',
-    backText: 'Back',
+    backText: 'Back [ESC]',
     backClick: 'app._landingPage()'
   };
 
   const updateData = {
     winnerText: 'Winner',
     points: [2, 3],
+    result: 'Rock beats Scissors',
     startText: 'ng',
     backText: 'qg'
   };
@@ -56,7 +58,7 @@ describe('Popup', () => {
           expect($('#popup').length).eql(1);
           expect($('#popup h1').length).eql(1);
           expect($('#popup .details').length).eql(1);
-          expect($('#popup .details div').length).eql(2);
+          expect($('#popup .details div').length).eql(3);
           expect($('#popup .buttonCnt').length).eql(1);
           expect($('#popup .buttonCnt button').length).eql(2);
         });

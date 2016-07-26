@@ -1,9 +1,38 @@
+.buttonCnt{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.buttonCnt div{
+  background-color: white;
+  cursor: default;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  border-radius: 10px;
+  margin: 10px;
+  width: 100px;
+  height: 100px;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.player1 .buttonCnt div:hover{
+  background-color: #e9e9e9;
+  cursor: pointer;
+}
+
 .active{
-  color: green;
+  background-color: #bbb !important;
 }
 .player{
   position: absolute;
   top:0;
+  margin: 10px;
 }
 .player1{
   left: 0px;
@@ -11,4 +40,7 @@
 
 .player2{
   right: 0px;
+}
+.player2 h1{
+  text-align: right;
 }

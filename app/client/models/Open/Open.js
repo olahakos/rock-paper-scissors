@@ -12,9 +12,9 @@ class OpenComponent extends AbsComponent {
     root = root || '../../views/open.html';
     store = store || {
       headline: 'Rock - Papper - Scissors',
-      menu1: '[1] Player VS Computer',
-      menu2: '[2] Computer VS Computer',
-      menu3: '[3] How to play',
+      menu1: '<b>[1]</b> Player VS Computer',
+      menu2: '<b>[2]</b> Computer VS Computer',
+      menu3: '<b>[3]</b> How to play',
       menu1OnClick: 'app._startGame("UVC")',
       menu2OnClick: 'app._startGame("CVC")',
       menu3OnClick: 'app._tutorialPage()'

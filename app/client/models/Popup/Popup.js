@@ -16,8 +16,10 @@ class PopupComponent extends AbsComponent {
   updateTexts(params) {
     this.store.headline = params.winnerText;
     this.store.points = `${params.points[0]} / ${params.points[1]}`;
-    this.store.startText = params.startText || 'Next Round';
-    this.store.backText = params.backText || 'Quit Game';
+    this.store.result = params.result;
+    this.store.details = '';
+    this.store.startText = params.startText || 'Next Round [ENTER]';
+    this.store.backText = params.backText || 'Quit Game [ESC]';
   }
   onKeyEvent(event) {
     if (!document.getElementById('popup')) { return; }
@@ -35,11 +37,12 @@ class PopupComponent extends AbsComponent {
   reset(store) {
     this.store = {
       headline: 'Round 1',
-      points: '0 / 0',
-      details: 'You have 3 secound to choose. Push the [1] [2] [3] buttons to select you symbole.',
-      startText: 'Start Game',
+      points: '',
+      result: '',
+      details: 'You have <b>3 secounds</b> to choose.<br/>Push the <b>[1] [2] [3]</b> buttons to select you weapon.',
+      startText: 'Start Game [ENTER]',
       startClick: 'app._startRound()',
-      backText: 'Back',
+      backText: 'Back [ESC]',
       backClick: 'app._landingPage()'
     };
   }

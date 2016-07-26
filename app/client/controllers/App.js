@@ -87,7 +87,8 @@ class App extends AbsController {
     _this.game._endRound();
     _this.popup.updateTexts({
       winnerText: _this.game.winnerText,
-      points: _this.game.points
+      points: _this.game.points,
+      result: _this.game.result
     });
     _this._openPopup();
   }

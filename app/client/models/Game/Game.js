@@ -61,7 +61,7 @@ class GameComponent extends AbsComponent {
     if (c1 === 0 && c2 === 1) {
       return ({
         winner: 2,
-        txt: 'Rock beats Papper'
+        txt: 'Rock beats Paper'
       });
     } // Papper beats Rock
     if (c1 === 0 && c2 === 2) {
@@ -73,13 +73,13 @@ class GameComponent extends AbsComponent {
     if (c1 === 1 && c2 === 2) {
       return ({
         winner: 2,
-        txt: 'Scissors beats Papper'
+        txt: 'Scissors beats Paper'
       });
     }
     if (c1 === 1 && c2 === 0) {
       return ({
         winner: 1,
-        txt: 'Papper beats Rock'
+        txt: 'Paper beats Rock'
       });
     }
     if (c1 === 2 && c2 === 0) {
@@ -91,7 +91,7 @@ class GameComponent extends AbsComponent {
     if (c1 === 2 && c2 === 1) {
       return ({
         winner: 1,
-        txt: 'Scissors beats Papper'
+        txt: 'Scissors beats Paper'
       });
     }
     return {
